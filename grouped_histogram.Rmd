@@ -1,0 +1,47 @@
+---
+title: "Grouped Histogram"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE}
+library(tidyverse)
+```
+
+Create some data:
+
+```{r}
+smarket_summary <- data.frame(
+  year = 2001:2004,
+  up = sample(100:200, 4),
+  down = sample(100:200, 4)
+)
+```
+
+```{r}
+smarket_summary
+```
+
+Reshape the data:
+
+```{r}
+smarket_summary <- smarket_summary %>% 
+  gather(direction, value, up, down)
+```
+
+```{r}
+smarket_summary
+```
+
+Plot the data:
+
+```{r}
+ggplot(smarket_summary, aes(year, value, fill=direction)) +
+  geom_bar(stat="identity", position='dodge') 
+```
+
+```
+
